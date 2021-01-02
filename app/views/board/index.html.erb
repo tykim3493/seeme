@@ -1,14 +1,46 @@
-<form action="/create" method="post">
-	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-	제목 : <input type="text" name="title"><br><br>
-	내용 : <input type="text" name="content"><br><br>	
-	<input type="submit" value="Submit">
-</form>
-<% @posts.each do |post| %>
-<hr>
-<h3>번호 : <%= post.id %></h3>
-<h3>제목 : <%= post.title %></h3>
-<h3>내용 : <%= post.content %></h3>
-<a href="/edit?id=<%= post.id %>">수정하기</a>
-<a href="/delete?id=<%= post.id %>">삭제하기</a>
-<% end %>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<div class="container mt-5 mb-5">
+		<form action="/create" method="post">		
+			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
+			<div class="input-group">
+				<span class="input-group-text" id="basic-addon1">제목</span>
+				<input type="text" name="title" class="form-control" placeholder="제목을 입력하세요." aria-label="Username" aria-describedby="basic-addon1">
+			</div>
+			<div id="emailHelp" class="form-text mb-3">We'll never share your email with anyone else.</div>
+
+			<div class="input-group mb-4">
+				<span class="input-group-text">내용</span>
+				<textarea class="form-control" name="content" placeholder="내용을 입력하세요." aria-label="With textarea"></textarea>
+			</div>
+			<div class="d-grid gap-2">
+				<input type="submit" value="작성하기" class="btn btn-primary mb-5">
+			</div>
+		</form>
+		
+		<% @posts.each do |post| %>
+		
+		<div class="progress mt-3 mb-3" style="height: 1px;">
+ 			<div class="progress-bar " role="progressbar" style="width: 3%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+		
+		<div class="mb-3">
+			<span class="badge rounded-pill bg-dark"><%= post.id %></span>
+			<span class="fs-6 fw-bold"><%= post.title %></span>
+		</div>
+		<p class="fs-6"><%= post.content %></p>
+		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+			<a href="/edit?id=<%= post.id %>"><span class="badge rounded-pill bg-success">수정하기</span></a>
+			<a href="/delete?id=<%= post.id %>"><span class="badge rounded-pill bg-danger">삭제하기</span></a>
+		</div>
+
+		<% end %>
+	
+	</div>
+
+</body>
